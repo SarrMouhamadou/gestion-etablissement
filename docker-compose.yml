@@ -1,0 +1,71 @@
+version: '3.8'
+services:
+  etudiants:
+    image: sarrmouhamadou/gestion-etablissement-etudiants:latest
+    ports:
+      - "5001:5000"  # Port externe:port interne
+    environment:
+      - FLASK_ENV=development
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  classes:
+    image: sarrmouhamadou/gestion-etablissement-classes:latest
+    ports:
+      - "5002:5000"
+    environment:
+      - FLASK_ENV=development
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  profs:
+    image: sarrmouhamadou/gestion-etablissement-profs:latest
+    ports:
+      - "5003:5000"
+    environment:
+      - FLASK_ENV=development
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  cours:
+    image: sarrmouhamadou/gestion-etablissement-cours:latest
+    ports:
+      - "5004:5000"
+    environment:
+      - FLASK_ENV=development
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  emploi-du-temps:
+    image: sarrmouhamadou/gestion-etablissement-emploi-du-temps:latest
+    ports:
+      - "5005:5000"
+    environment:
+      - FLASK_ENV=development
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  web:
+    image: sarrmouhamadou/gestion-etablissement-web:latest
+    ports:
+      - "5000:5000"  # Interface web accessible sur le port 5000
+    depends_on:
+      - etudiants
+      - classes
+      - profs
+      - cours
+      - emploi-du-temps
+    environment:
+      - FLASK_ENV=development
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
