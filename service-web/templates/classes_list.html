@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Liste des classes{% endblock %}
+{% block content %}
+    <h1>Liste des classes</h1>
+    <a href="{{ url_for('add_classe') }}" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Ajouter une classe</a>
+    <div class="row">
+        {% for classe in classes %}
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Classe #{{ classe.id }}</h5>
+                    <p class="card-text"><strong>Nom :</strong> {{ classe.nom }}</p>
+                    <a href="{{ url_for('edit_classe', id=classe.id) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Modifier</a>
+                    <a href="{{ url_for('delete_classe', id=classe.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Confirmer la suppression ?')"><i class="fas fa-trash"></i> Supprimer</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

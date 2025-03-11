@@ -1,0 +1,83 @@
+
+body {
+    background: url('/static/images/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    display: flex; /* Utiliser flexbox pour centrer */
+    justify-content: center; /* Centrer horizontalement */
+    align-items: center; /* Centrer verticalement */
+    min-height: 100vh; /* Assurer que la hauteur est au moins celle de l'écran */
+}
+
+.login-container {
+    background: rgba(255, 255, 255, 0.1); /* Fond transparent (10% d'opacité) */
+    backdrop-filter: blur(10px); /* Effet de flou pour un look moderne */
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Bordure légère pour délimiter */
+}
+
+.login-container img {
+    max-width: 150px;
+    margin-bottom: 1.5rem;
+    border-radius: 50%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h2 {
+    color: #fff; /* Texte blanc pour contraster avec le fond transparent */
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.form-control {
+    border-radius: 25px;
+    padding: 0.75rem 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.5); /* Bordure claire pour lisibilité */
+    background-color: rgba(255, 255, 255, 0.2); /* Fond semi-transparent pour les champs */
+    color: #fff; /* Texte blanc */
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #fff;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.3); /* Légère opacité accrue au focus */
+    color: #fff;
+}
+
+.form-label {
+    color: #fff; /* Labels en blanc pour contraste */
+}
+
+.btn-primary {
+    background-color: #6a11cb;
+    border: none;
+    border-radius: 25px;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    color: #fff; /* Texte blanc sur le bouton */
+}
+
+.btn-primary:hover {
+    background-color: #4d08a0;
+    transform: translateY(-2px);
+}
+
+.alert {
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    color: #fff; /* Texte des alertes en blanc */
+    background-color: rgba(0, 0, 0, 0.2); /* Fond sombre semi-transparent */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.alert .btn-close {
+    filter: invert(1); /* Icône de fermeture en blanc */
+}

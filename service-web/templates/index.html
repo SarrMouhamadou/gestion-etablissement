@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block title %}Tableau de bord{% endblock %}
+{% block content %}
+    <h1>Tableau de bord</h1>
+    <!-- Statistiques -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <a href="{{ url_for('list_etudiants') }}" class="text-decoration-none">
+                <div class="card text-center card-hover">
+                    <div class="card-body">
+                        <i class="fas fa-graduation-cap fa-2x text-success mb-2"></i>
+                        <h5 class="card-title">Total des étudiants</h5>
+                        <p class="card-text display-6">{{ stats.total_etudiants }}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="{{ url_for('list_profs') }}" class="text-decoration-none">
+                <div class="card text-center card-hover">
+                    <div class="card-body">
+                        <i class="fas fa-chalkboard-teacher fa-2x text-success mb-2"></i>
+                        <h5 class="card-title">Total des professeurs</h5>
+                        <p class="card-text display-6">{{ stats.total_profs }}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="{{ url_for('list_classes') }}" class="text-decoration-none">
+                <div class="card text-center card-hover">
+                    <div class="card-body">
+                        <i class="fas fa-school fa-2x text-success mb-2"></i>
+                        <h5 class="card-title">Total des classes</h5>
+                        <p class="card-text display-6">{{ stats.total_classes }}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="{{ url_for('list_cours') }}" class="text-decoration-none">
+                <div class="card text-center card-hover">
+                    <div class="card-body">
+                        <i class="fas fa-book fa-2x text-success mb-2"></i>
+                        <h5 class="card-title">Total des cours</h5>
+                        <p class="card-text display-6">{{ stats.total_cours }}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Emploi du temps -->
+    <h2>Emploi du temps</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Classe</th>
+                <th>Heure</th>
+                <th>Matière</th>
+                <th>Professeur</th>
+                <th>Salle</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if emplois %}
+                {% for emploi in emplois %}
+                <tr>
+                    <td>{{ emploi.date }}</td>
+                    <td>{{ emploi.classe_nom }}</td>
+                    <td>{{ emploi.heure }}</td>
+                    <td>{{ emploi.cours_titre }}</td>
+                    <td>{{ emploi.professeur_nom }}</td>
+                    <td>{{ emploi.classe_id }}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="6" class="text-center">Aucun emploi du temps disponible.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+{% endblock %}

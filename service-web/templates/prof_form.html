@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}{% if prof %}Modifier{% else %}Ajouter{% endif %} un professeur{% endblock %}
+{% block content %}
+    <h1>{% if prof %}Modifier{% else %}Ajouter{% endif %} un professeur</h1>
+    <form method="POST" action="{% if prof %}{{ url_for('edit_prof', matricule=prof.matricule) }}{% else %}{{ url_for('add_prof') }}{% endif %}">
+        <div class="mb-3">
+            <label class="form-label">Matricule</label>
+            <input type="text" class="form-control" name="matricule" value="{% if prof %}{{ prof.matricule }}{% endif %}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Nom</label>
+            <input type="text" class="form-control" name="nom" value="{% if prof %}{{ prof.nom }}{% endif %}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Prénom</label>
+            <input type="text" class="form-control" name="prenom" value="{% if prof %}{{ prof.prenom }}{% endif %}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" value="{% if prof %}{{ prof.email }}{% endif %}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Matière</label>
+            <select class="form-select" name="matiere" required>
+                <option value="">Sélectionnez une matière</option>
+                {% for cours in cours %}
+                    <option value="{{ cours.id }}" {% if prof and prof.matiere == cours.id %}selected{% endif %}>
+                        {{ cours.nom }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">{% if prof %}Modifier{% else %}Ajouter{% endif %}</button>
+        <a href="{{ url_for('list_profs') }}" class="btn btn-secondary">Annuler</a>
+    </form>
+{% endblock %}

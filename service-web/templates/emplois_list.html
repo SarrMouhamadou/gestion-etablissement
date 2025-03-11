@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Liste des emplois du temps{% endblock %}
+{% block content %}
+    <h1>Liste des emplois du temps</h1>
+    <a href="{{ url_for('add_emploi') }}" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Ajouter un emploi du temps</a>
+    <div class="row">
+        {% for emploi in emplois %}
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Emploi #{{ emploi.id }}</h5>
+                    <p class="card-text"><strong>Date :</strong> {{ emploi.date }}</p>
+                    <p class="card-text"><strong>Heure :</strong> {{ emploi.heure }}</p>
+                    <p class="card-text"><strong>Cours :</strong> {{ emploi.cours_titre }}</p>
+                    <p class="card-text"><strong>Professeur :</strong> {{ emploi.professeur_nom }}</p>
+                    <p class="card-text"><strong>Classe :</strong> {{ emploi.classe_nom }}</p>
+                    <a href="{{ url_for('edit_emploi', id=emploi.id) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Modifier</a>
+                    <a href="{{ url_for('delete_emploi', id=emploi.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Confirmer la suppression ?')"><i class="fas fa-trash"></i> Supprimer</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

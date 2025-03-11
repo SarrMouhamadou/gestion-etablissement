@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Liste des professeurs{% endblock %}
+{% block content %}
+    <h1>Liste des professeurs</h1>
+    <a href="{{ url_for('add_prof') }}" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Ajouter un professeur</a>
+    <div class="row">
+        {% for prof in profs %}
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Professeur #{{ prof.matricule }}</h5>
+                    <p class="card-text"><strong>Nom :</strong> {{ prof.nom }}</p>
+                    <p class="card-text"><strong>Prénom :</strong> {{ prof.prenom }}</p>
+                    <p class="card-text"><strong>Email :</strong> {{ prof.email }}</p>
+                    <p class="card-text"><strong>Matière :</strong> {{ prof.matiere_titre }}</p>
+                    <a href="{{ url_for('edit_prof', matricule=prof.matricule) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Modifier</a>
+                    <a href="{{ url_for('delete_prof', matricule=prof.matricule) }}" class="btn btn-sm btn-danger" onclick="return confirm('Confirmer la suppression ?')"><i class="fas fa-trash"></i> Supprimer</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

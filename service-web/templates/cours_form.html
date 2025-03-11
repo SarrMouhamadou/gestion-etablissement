@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}{% if cours %}Modifier{% else %}Ajouter{% endif %} un cours{% endblock %}
+{% block content %}
+    <h1>{% if cours %}Modifier{% else %}Ajouter{% endif %} un cours</h1>
+    <form method="POST" action="{% if cours %}{{ url_for('edit_cours', id=cours.id) }}{% else %}{{ url_for('add_cours') }}{% endif %}">
+        <div class="mb-3">
+            <label class="form-label">Nom</label>
+            <input type="text" class="form-control" name="nom" value="{% if cours %}{{ cours.nom }}{% endif %}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea class="form-control" name="description">{% if cours %}{{ cours.description }}{% endif %}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">{% if cours %}Modifier{% else %}Ajouter{% endif %}</button>
+        <a href="{{ url_for('list_cours') }}" class="btn btn-secondary">Annuler</a>
+    </form>
+{% endblock %}

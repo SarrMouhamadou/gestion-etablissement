@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}{% if etudiant %}Modifier{% else %}Ajouter{% endif %} un étudiant{% endblock %}
+{% block content %}
+    <h1>{% if etudiant %}Modifier{% else %}Ajouter{% endif %} un étudiant</h1>
+    <form method="POST" action="{% if etudiant %}{{ url_for('edit_etudiant', matricule=etudiant.matricule) }}{% else %}{{ url_for('add_etudiant') }}{% endif %}">
+        <div class="mb-3">
+            <label class="form-label">Matricule</label>
+            <input type="text" class="form-control" name="matricule" value="{% if etudiant %}{{ etudiant.matricule }}{% endif %}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Nom</label>
+            <input type="text" class="form-control" name="nom" value="{% if etudiant %}{{ etudiant.nom }}{% endif %}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Prénom</label>
+            <input type="text" class="form-control" name="prenom" value="{% if etudiant %}{{ etudiant.prenom }}{% endif %}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" value="{% if etudiant %}{{ etudiant.email }}{% endif %}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Classe</label>
+            <select class="form-select" name="classe_id" required>
+                <option value="">Sélectionnez une classe</option>
+                {% for classe in classes %}
+                <option value="{{ classe.id }}" {% if etudiant and etudiant.classe_id == classe.id %}selected{% endif %}>{{ classe.nom }} ({{ classe.id }})</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">{% if etudiant %}Modifier{% else %}Ajouter{% endif %}</button>
+        <a href="{{ url_for('list_etudiants') }}" class="btn btn-secondary">Annuler</a>
+    </form>
+{% endblock %}

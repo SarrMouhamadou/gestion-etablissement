@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Liste des étudiants{% endblock %}
+{% block content %}
+    <h1>Liste des étudiants</h1>
+    <a href="{{ url_for('add_etudiant') }}" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Ajouter un étudiant</a>
+    <div class="row">
+        {% for etudiant in etudiants %}
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Étudiant #{{ etudiant.matricule }}</h5>
+                    <p class="card-text"><strong>Nom :</strong> {{ etudiant.nom }}</p>
+                    <p class="card-text"><strong>Prénom :</strong> {{ etudiant.prenom }}</p>
+                    <p class="card-text"><strong>Email :</strong> {{ etudiant.email }}</p>
+                    <p class="card-text"><strong>Classe :</strong> {{ etudiant.classe_nom }}</p>
+                    <a href="{{ url_for('edit_etudiant', matricule=etudiant.matricule) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Modifier</a>
+                    <a href="{{ url_for('delete_etudiant', matricule=etudiant.matricule) }}" class="btn btn-sm btn-danger" onclick="return confirm('Confirmer la suppression ?')"><i class="fas fa-trash"></i> Supprimer</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

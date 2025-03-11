@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Liste des cours{% endblock %}
+{% block content %}
+    <h1>Liste des cours</h1>
+    <a href="{{ url_for('add_cours') }}" class="btn btn-primary mb-3">Ajouter un cours</a>
+    <div class="row">
+        {% for cours in cours %}
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ cours.nom }}</h5>
+                        <p class="card-text"><strong>Description :</strong> {{ cours.description or 'Aucune' }}</p>
+                        <p class="card-text"><strong>Professeur :</strong> {{ cours.professeur_nom }}</p>
+                        <a href="{{ url_for('edit_cours', id=cours.id) }}" class="btn btn-warning">Modifier</a>
+                        <a href="{{ url_for('delete_cours', id=cours.id) }}" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr ?');">Supprimer</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
