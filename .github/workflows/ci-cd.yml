@@ -34,7 +34,7 @@ jobs:
         docker build -t gestion-etablissement-classes:latest -f service-classes/Dockerfile service-classes
         docker build -t gestion-etablissement-profs:latest -f service-profs/Dockerfile service-profs
         docker build -t gestion-etablissement-cours:latest -f service-cours/Dockerfile service-cours
-        docker build -t gestion-etablissement-emplois:latest -f service-emplois/Dockerfile service-emplois
+        docker build -t gestion-etablissement-emploi-du-temps:latest -f service-emploi-du-temps/Dockerfile service-emploi-du-temps
         docker build -t gestion-etablissement-web:latest -f service-web/Dockerfile service-web
 
     # Log in to Docker Hub
@@ -51,13 +51,13 @@ jobs:
         docker tag gestion-etablissement-classes:latest ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-classes:latest
         docker tag gestion-etablissement-profs:latest ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-profs:latest
         docker tag gestion-etablissement-cours:latest ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-cours:latest
-        docker tag gestion-etablissement-emplois:latest ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-emplois:latest
+        docker tag gestion-etablissement-emploi-du-temps:latest ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-emploi-du-temps:latest  # Corrigé ici
         docker tag gestion-etablissement-web:latest ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-web:latest
         docker push ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-etudiants:latest
         docker push ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-classes:latest
         docker push ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-profs:latest
         docker push ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-cours:latest
-        docker push ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-emplois:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-emploi-du-temps:latest
         docker push ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-web:latest
 
     # Déploiement en Dev (Docker local ou serveur avec Docker)
