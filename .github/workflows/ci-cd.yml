@@ -1,0 +1,67 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Récupérer le code source
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Configurer Python
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9' # Ajustez selon votre version de Python
+
+    # Installer les dépendances
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    # Exécuter les tests unitaires (à ajouter plus tard si vous avez des tests)
+    - name: Run unit tests
+      run: |
+        # Ajoutez ici vos commandes de tests, par exemple :
+        # python -m pytest tests/
+        echo "Tests unitaires à implémenter"
+
+    # Build des images Docker pour chaque microservice
+    - name: Build Docker images
+      run: |
+        docker build -t gestion-etablissement-etudiants:latest -f service-etudiants/Dockerfile service-etudiants
+        docker build -t gestion-etablissement-classes:latest -f service-classes/Dockerfile service-classes
+        docker build -t gestion-etablissement-profs:latest -f service-profs/Dockerfile service-profs
+        docker build -t gestion-etablissement-cours:latest -f service-cours/Dockerfile service-cours
+        docker build -t gestion-etablissement-emplois:latest -f service-emplois/Dockerfile service-emplois
+        docker build -t gestion-etablissement-web:latest -f service-web/Dockerfile service-web
+
+    # Pousser les images vers Docker Hub (Dev)
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Push Docker images to Docker Hub
+      run: |
+        docker tag gestion-etablissement-etudiants:latest ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-etudiants:latest
+        docker tag gestion-etablissement-classes:latest ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-classes:latest
+        docker tag gestion-etablissement-profs:latest ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-profs:latest
+        docker tag gestion-etablissement-cours:latest ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-cours:latest
+        docker tag gestion-etablissement-emplois:latest ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-emplois:latest
+        docker tag gestion-etablissement-web:latest ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-web:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-etudiants:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-classes:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-profs:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-cours:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-emplois:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/gestion-etablissement-web:latest
